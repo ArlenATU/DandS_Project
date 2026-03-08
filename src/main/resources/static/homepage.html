@@ -73,6 +73,38 @@
             background:#17a673;
         }
 
+        .btn-guest{
+            background:#6c757d;
+        }
+
+        .btn-guest:hover{
+            background:#5a6268;
+        }
+
+        .divider{
+            margin:20px 0;
+            position:relative;
+            text-align:center;
+        }
+
+        .divider::before{
+            content:"";
+            position:absolute;
+            top:50%;
+            left:0;
+            right:0;
+            height:1px;
+            background:#ddd;
+        }
+
+        .divider span{
+            background:white;
+            padding:0 15px;
+            position:relative;
+            color:#999;
+            font-size:13px;
+        }
+
         .footer{
             margin-top:20px;
             font-size:13px;
@@ -89,12 +121,18 @@
     <h2>Welcome</h2>
 
     <p class="welcome-text">
-        Welcome to our application. Please login to your account or create a new one to get started.
+        Welcome to our application. Login to your account, create a new one, or continue as a guest to browse.
     </p>
 
     <div class="button-group">
         <a href="login.html" class="btn">Login</a>
         <a href="register.html" class="btn btn-secondary">Create Account</a>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <a href="guest.html" class="btn btn-guest">Continue as Guest</a>
     </div>
 
     <div class="footer">
