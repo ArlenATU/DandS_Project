@@ -6,20 +6,46 @@ window.onload = loadProfile;
 
 function loadProfile(){
 
-fetch(`/api/users/profile/${userId}`)
-.then(res=>res.json())
-.then(data=>{
+    fetch(`/api/profile/${userId}`)
+        .then(res=>res.json())
+        .then(data=>{
 
-profileData = data;
+            profileData = data.profile;
 
-document.getElementById("username").innerText = data.name;
-document.getElementById("nameText").innerText = data.name;
-document.getElementById("bioText").innerText = data.bio;
-document.getElementById("avatarPreview").src = data.avatarUrl;
-document.getElementById("miniAvatar").src = data.avatarUrl;
+            document.getElementById("username").innerText = profileData.name;
+            document.getElementById("nameText").innerText = profileData.name;
+            document.getElementById("bioText").innerText = profileData.bio;
+            document.getElementById("avatarPreview").src = profileData.profilePictureUrl || "https://i.pravatar.cc/100";
+            document.getElementById("miniAvatar").src = profileData.profilePictureUrl || "https://i.pravatar.cc/100";
 
-});
+            renderStories(data.stories);
 
+        });
+}
+
+function renderStories(stories){
+
+    const container = document.getElementById("storiesContainer");
+    container.innerHTML = "";
+
+    if(stories.length === 0){
+        container.innerHTML = "<p>No stories yet</p>";
+        return;
+    }
+
+    stories.forEach(story => {
+
+        const div = document.createElement("div");
+        div.classList.add("story");
+
+        div.innerHTML = `
+        <h4>${story.title}</h4>
+        <p>${story.content}</p>
+    `;
+
+        container.appendChild(div);
+
+    });
 }
 
 function editName(){
@@ -74,23 +100,17 @@ reader.readAsDataURL(file);
 
 function saveProfile(){
 
-fetch(`/api/users/profile/${userId}`,{
+    fetch(`/api/profile/${userId}`,{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(profileData)
+    })
+        .then(()=>{
 
-method:"PUT",
+            alert("Profile updated");
+            location.reload();
 
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(profileData)
-
-})
-.then(()=>{
-
-alert("Profile updated");
-
-location.reload();
-
-});
-
+        });
 }
