@@ -21,6 +21,8 @@ public class Profile {
 
     private String profilePictureUrl;
 
+    private String name;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
