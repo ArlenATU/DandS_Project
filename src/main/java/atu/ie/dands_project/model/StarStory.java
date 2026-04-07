@@ -1,14 +1,8 @@
 package atu.ie.dands_project.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class StarStory {
 
     @Id
@@ -17,10 +11,9 @@ public class StarStory {
 
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
-    // Storing userId as a reference rather than a direct entity mapping
-    // to support your microservice structure.
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
