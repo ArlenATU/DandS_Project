@@ -20,7 +20,5 @@ public class StarStory {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    // Storing userId as a reference rather than a direct entity mapping
-    // to support your microservice structure.
     private Long userId;
 }
