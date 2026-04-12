@@ -1,4 +1,4 @@
-package ie.atu.dands_project.model;
+package ie.atu.profileservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,11 +1,11 @@
-package atu.ie.dands_project.repository;
+package ie.atu.profileservice.repository;
 
-import atu.ie.dands_project.model.Profile;
+import ie.atu.profileservice.model.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
-    Optional<Profile> findByUser_Id(Long userId);
+    Optional<Profile> findByUserId(Long userId);
 
 }

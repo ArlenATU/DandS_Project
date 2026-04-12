@@ -1,7 +1,7 @@
-package ie.atu.dands_project.controller;
+package ie.atu.profileservice.controller;
 
-import ie.atu.dands_project.model.Profile;
-import ie.atu.dands_project.service.ProfileService;
+import ie.atu.profileservice.model.Profile;
+import ie.atu.profileservice.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

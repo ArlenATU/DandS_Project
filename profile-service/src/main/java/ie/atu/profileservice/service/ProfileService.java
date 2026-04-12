@@ -1,7 +1,7 @@
-package ie.atu.dands_project.service;
+package ie.atu.profileservice.service;
 
-import ie.atu.dands_project.model.Profile;
-import ie.atu.dands_project.repository.ProfileRepository;
+import ie.atu.profileservice.model.Profile;
+import ie.atu.profileservice.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +14,11 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
 
     public Profile createProfile(Long userId, String username) {
+
+        if (profileRepository.findByUserId(userId).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Profile already exists for this user.");
+        }
+
         String avatarUrl = "https://i.pravatar.cc/150?u=" + userId;
 
         Profile profile = new Profile();
@@ -35,10 +40,18 @@ public class ProfileService {
         Profile existingProfile = profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
 
-        existingProfile.setName(profileUpdates.getName());
-        existingProfile.setBio(profileUpdates.getBio());
-        existingProfile.setLocation(profileUpdates.getLocation());
-        existingProfile.setProfilePictureUrl(profileUpdates.getProfilePictureUrl());
+        if (profileUpdates.getName() != null) {
+            existingProfile.setName(profileUpdates.getName());
+        }
+        if (profileUpdates.getBio() != null) {
+            existingProfile.setBio(profileUpdates.getBio());
+        }
+        if (profileUpdates.getLocation() != null) {
+            existingProfile.setLocation(profileUpdates.getLocation());
+        }
+        if (profileUpdates.getProfilePictureUrl() != null) {
+            existingProfile.setProfilePictureUrl(profileUpdates.getProfilePictureUrl());
+        }
 
         return profileRepository.save(existingProfile);
     }
